@@ -11,12 +11,12 @@ phases:
       - $(aws ecr get-login --no-include-email --region ap-northeast-2)
   build:
     commands:
-      - docker build -t nestjs-example .
+      - docker build -t code-pipeline-nestjs .
   post_build:
     commands:
       - docker tag code-pipeline-nestjs:latest 471011865482.dkr.ecr.ap-northeast-2.amazonaws.com/code-pipeline-nestjs:latest
       - docker push 471011865482.dkr.ecr.ap-northeast-2.amazonaws.com/code-pipeline-nestjs:latest
       - echo Writing image definitions file...
-      - printf '[{"name":"nestjs-example-container","imageUri":"%s"}]' 471011865482.dkr.ecr.ap-northeast-2.amazonaws.com/code-pipeline-nestjs > imagedefinitions.json
+      - printf '[{"name":"code-pipeline-nestjs-container","imageUri":"%s"}]' 471011865482.dkr.ecr.ap-northeast-2.amazonaws.com/code-pipeline-nestjs > imagedefinitions.json
 artifacts:
   files: imagedefinitions.json
