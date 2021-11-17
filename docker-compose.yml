@@ -1,0 +1,29 @@
+version: "3"
+services:
+  backend:
+    build: ./backend
+    image: 471011865482.dkr.ecr.ap-northeast-2.amazonaws.com/ecs-nestjs-backend:latest
+    restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      - /src/docker-server
+      - /var/log/uwsgi
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: ap-northeast-2
+        awslogs-group: backend-container
+        awslogs-stream-prefix: backend-container
+
+  nginx:
+    restart: always
+    build: ./nginx
+    image: 471011865482.dkr.ecr.ap-northeast-2.amazonaws.com/ecs-nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - /src/docker-server
+      - /var/log/nginx
+    depends_on:
+      - backend
