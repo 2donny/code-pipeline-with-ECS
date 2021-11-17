@@ -1,7 +1,7 @@
 # Step 1
-FROM node:12 as builder
+FROM node:12-alpine as builder
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
 COPY package*.json ./
 
@@ -11,15 +11,7 @@ COPY ./ ./
 
 RUN npm run build
 
-# Step 2
-
-FROM node:12
-
-WORKDIR /usr/src/app
-
-COPY --from=builder /app ./
-
-EXPOSE 8000
+EXPOSE 80
 
 CMD ["npm", "run", "start:prod"]
 

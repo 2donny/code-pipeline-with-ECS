@@ -6,7 +6,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(logger('dev'));
 
-  await app.listen(8000, () => {
+  await app.listen(80, () => {
     process.send?.('ready');
   });
 }
