@@ -17,6 +17,6 @@ phases:
       - docker tag code-pipeline-nestjs:latest 471011865482.dkr.ecr.ap-northeast-2.amazonaws.com/code-pipeline-nestjs:latest
       - docker push 471011865482.dkr.ecr.ap-northeast-2.amazonaws.com/code-pipeline-nestjs:latest
       - echo Writing image definitions file...
-      - printf '[{"name":"code-pipeline-nestjs-container","imageUri":"%s"}]' 471011865482.dkr.ecr.ap-northeast-2.amazonaws.com/code-pipeline-nestjs > imagedefinitions.json
+      - printf '[{"name":"%s","imageUri":"%s"}]' code-pipeline-nestjs-app 471011865482.dkr.ecr.ap-northeast-2.amazonaws.com/code-pipeline-nestjs > imagedefinitions.json
 artifacts:
   files: imagedefinitions.json
